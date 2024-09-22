@@ -14,16 +14,18 @@ export const getWeatherByCity = async (city) => {
   }
 };
 
+// Fungsi untuk mengambil data cuaca dari beberapa kota
 export const getWeatherForCities = async (cities) => {
   const requests = cities.map((city) =>
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-    ).then((response) => response.json())
+    ).then((response) => response.json()) // Mengubah response menjadi JSON
   );
 
-  return Promise.all(requests);
+  return Promise.all(requests); // Mengembalikan data cuaca dari beberapa kota
 };
 
+// Fungsi untuk mengambil data cuaca 10 hari ke depan
 export const getWeatherForecast = async (lat, lon) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`

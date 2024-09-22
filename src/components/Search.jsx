@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 export default function Search({setCity, fetchWeather}) {
   const [inputValue, setInputValue] = useState("");
 
+  // Fungsi untuk handle search
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!inputValue.trim()) {
@@ -16,7 +17,7 @@ export default function Search({setCity, fetchWeather}) {
       return;
     }
       setCity(inputValue);
-      fetchWeather(inputValue); // Fetch weather data
+      fetchWeather(inputValue);
   };
 
   return (

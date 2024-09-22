@@ -1,7 +1,7 @@
 import { IconMapPin } from '@tabler/icons-react';
 import React, { useState } from 'react';
 
-export default function CardNow({ weatherData, error }) {
+export default function CardNow({ weatherData }) {
   const [unit, setUnit] = useState("C"); // State untuk melacak unit suhu
 
   // Fungsi untuk mengubah suhu dari Celsius ke Fahrenheit
@@ -12,6 +12,7 @@ export default function CardNow({ weatherData, error }) {
     return tempCelsius; // Tetap Celsius jika unit adalah "C"
   };
 
+    // Fungsi untuk mendapatkan tanggal dan waktu saat ini
   const getCurrentDate = () => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -26,19 +27,15 @@ export default function CardNow({ weatherData, error }) {
   return (
     <div className="bg-gray-800 p-5 rounded-2xl text-white border border-slate-600">
       <div className="flex justify-between">
-        
+
+        {/* Menampilkan Nama Kota dan Negara */}
         <div className="flex p-2 bg-slate-300 rounded-xl text-black">
           <IconMapPin size={24} />
-          {/* Menampilkan Nama Kota dan Negara */}
-          <p>
-            {weatherData
-              ? `${weatherData.name}, ${weatherData.sys.country}`
-              : "Loading..."}
-          </p>
+          <p>{weatherData ? `${weatherData.name}, ${weatherData.sys.country}`: "Loading..."}</p>
         </div>
-        
+
+        {/* Dropdown untuk memilih unit Celsius atau Fahrenheit */}
         <div>
-          {/* Dropdown untuk memilih unit Celsius atau Fahrenheit */}
           <select
             value={unit}
             onChange={(e) => setUnit(e.target.value)} // Ubah state unit saat dropdown berubah
@@ -50,16 +47,16 @@ export default function CardNow({ weatherData, error }) {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between mt-7">
+
+        {/* Menampilkan Hari dan Tanggal */}
         <div className="w-1/2">
-          {/* Menampilkan Hari dan Tanggal */}
-          <p className="text-4xl font-semibold">
-            {getCurrentDate().split(",")[0]}
-          </p>
-          <p className="font-light text-sm">{getCurrentDate()}</p>
+          <p className="text-4xl font-semibold">{getCurrentDate().split(",")[0]}</p> {/* Menampilkan Hari */}
+          <p className="font-light text-sm">{getCurrentDate()}</p> {/* Menampilkan Tanggal */}
         </div>
+
+        {/* Menampilkan Ikon Cuaca */}
         <div className="w-3/4 flex justify-end items-center md:justify-center">
-          {/* Menampilkan Ikon Cuaca */}
-          <p className="">
+          <div>
             {weatherData
               ? (() => {
                   const mainWeather = weatherData.weather[0].main;
@@ -101,29 +98,21 @@ export default function CardNow({ weatherData, error }) {
                   );
                 })()
               : "Loading..."}
-          </p>
-        </div>
-        <div className="w-1/2 md:text-end">
-          {/* Menampilkan Suhu berdasarkan unit */}
-          <p className="text-2xl font-semibold md:text-4xl md:mb-12 md:mt-10 mt-0 mb-0">
-            {weatherData
-              ? `${convertTemp(weatherData.main.temp).toFixed(1)}°${unit}`
-              : "Loading..."}
-          </p>
-          <div className="font-light text-sm text-start md:text-end md:text-lg text-slate-300">
-            {/* Menampilkan Deskripsi Cuaca dan Feels Like */}
-            <p>
-              {weatherData ? weatherData.weather[0].description : "Loading..."}
-            </p>
-            <p>
-              {weatherData
-                ? `Feels like ${convertTemp(
-                    weatherData.main.feels_like
-                  ).toFixed(1)}°${unit}`
-                : "Loading..."}
-            </p>
           </div>
         </div>
+
+        {/* Menampilkan Suhu berdasarkan unit */}
+        <div className="w-1/2 md:text-end">
+          <p className="text-2xl font-semibold md:text-4xl md:mb-12 md:mt-10 mt-0 mb-0">
+            {weatherData ? `${convertTemp(weatherData.main.temp).toFixed(1)}°${unit}`: "Loading..."}
+          </p>
+            {/* Menampilkan Deskripsi Cuaca dan Feels Like */}
+          <div className="font-light text-sm text-start md:text-end md:text-lg text-slate-300">
+            <p>{weatherData ? weatherData.weather[0].description : "Loading..."}</p>
+            <p>{weatherData ? `Feels like ${convertTemp(weatherData.main.feels_like).toFixed(1)}°${unit}` : "Loading..."}</p>
+          </div>
+        </div>
+        
       </div>
     </div>
   );

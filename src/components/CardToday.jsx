@@ -2,7 +2,7 @@ import {IconDropletHalf2Filled, IconEye, IconRipple, IconWind} from "@tabler/ico
 import React from "react";
 
 export default function CardToday({weatherData}) {
-  // Terima weatherData sebagai props
+
   // Ambil data yang diperlukan dari weatherData
   const windSpeed = weatherData ? weatherData.wind.speed : null; // Kecepatan angin
   const humidity = weatherData ? weatherData.main.humidity : null; // Kelembapan
@@ -21,6 +21,7 @@ export default function CardToday({weatherData}) {
     : ""; // Waktu terbenam matahari
   const visibility = weatherData ? weatherData.visibility / 1000 : null; // Visibilitas dalam km
 
+// Fungsi untuk mendapatkan deskripsi kelembapan
   const getHumidityDescription = (humidity) => {
     if (humidity < 30) {
       return "Too low";
@@ -38,6 +39,7 @@ export default function CardToday({weatherData}) {
       <div className="p-5">
         <p className="text-xl font-semibold pb-5">Today's Highlight</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
           {/* windstatus */}
           <div className="p-2 bg-slate-700 rounded-2xl text-end space-y-3 border border-slate-500">
             <div className="flex items-center justify-end">
@@ -83,7 +85,7 @@ export default function CardToday({weatherData}) {
             </div>
             <p className="text-2xl font-semibold">
               {weatherData && weatherData.main.sea_level !== undefined
-                ? `${weatherData.main.sea_level} hPa` // Tampilkan sea level dalam hPa
+                ? `${weatherData.main.sea_level} hPa`
                 : "Loading..."}
             </p>
             <p className="font-light text-sm text-slate-300">
