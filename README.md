@@ -1,7 +1,7 @@
 # Weather App
 
 This is a simple weather app that uses the OpenWeatherMap API to retrieve weather data for a specified city. 
-You can view the live demo [here](https://weather-app-ten.vercel.app/).
+You can view the live demo https://wheaterweb.netlify.app/.
 
 ## Features
 
